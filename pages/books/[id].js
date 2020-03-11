@@ -1,6 +1,20 @@
 import { useRouter } from 'next/router'
-
-export default function Books() {
+import Axios from 'axios';
+function Books(props) {
   const router = useRouter();
-  return <h1>{JSON.stringify(router)}</h1>
+  return <>
+      <div>{JSON.stringify(props)}</div>
+    </>
 }
+
+Books.getInitialProps = async function(context){
+  const response = await Axios.get('http://localhost:3000/api/test');
+  console.log(response.data);
+
+  return {
+    data: response.data
+  }
+}
+
+
+export default Books
